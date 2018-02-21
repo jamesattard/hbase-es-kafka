@@ -11,5 +11,3 @@ This configuration builds an HBase, ElasticSearch and Kafka setup in a Docker to
 ## Run the HBase-ES-Kafka Cluster
 
     $ docker-compose up
-
-Point the browser or Postman to http://localhost:5000/api/users
