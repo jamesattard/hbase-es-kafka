@@ -1,0 +1,16 @@
+#! /bin/bash -e
+
+sed -i -- "s|ZOOKEEPER_CONNECT|$ZOOKEEPER_CONNECT|g" $KAFKA_CONFIG
+sed -i -- "s|BROKER_ID|$BROKER_ID|g" $KAFKA_CONFIG
+sed -i -- "s|BROKER_PORT|$BROKER_PORT|g" $KAFKA_CONFIG
+sed -i -- "s|ADVERTISED_HOST_NAME|$ADVERTISED_HOST_NAME|g" $KAFKA_CONFIG
+sed -i -- "s|ADVERTISED_PORT|$ADVERTISED_PORT|g" $KAFKA_CONFIG
+sed -i -- "s|TOPIC_PARTITIONS|$TOPIC_PARTITIONS|g" $KAFKA_CONFIG
+
+if [ $REPLICATION_FACTOR -gt "1" ]; then
+  sed -i -- "s|REPLICATION_FACTOR|$REPLICATION_FACTOR|g" $KAFKA_CONFIG;
+else
+  sed -i '/default.replication.factor=/c\' $KAFKA_CONFIG;
+fi
+
+exec kafka-server-start.sh $KAFKA_CONFIG
